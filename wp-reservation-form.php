@@ -15,29 +15,11 @@
  {
     public function __construct()
     {
-        // Rendering admin menu
-        add_action ('admin_menu', array($this, 'newmenu'));
-
-        // Append banner to content
-        add_filter( 'the_content', array($this, 'change_content') );
 
     }
-
-
-    public function newmenu() 
-    {
-        add_management_page('Some page title', 'My Custom Menu', 'install_plugins', 'some_unique_string', 'my_custom_page_render_function', '');
-    }
-
-
-    public function change_content ( $content ) 
-    {
-        $content .= '<h1>Banner</h1>';
-        return $content;
-    }
-
 
  }
 
  new WP_Reservation_Form();
+ 
  
