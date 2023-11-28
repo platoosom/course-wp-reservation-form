@@ -20,12 +20,21 @@
 
         // Register stylesheet
         add_action('init', array($this, 'register_stylesheet'));
+
+        // Register javascript
+        add_action('init', array($this, 'register_js'));
     }
 
 
     public function register_stylesheet()
     {
         wp_enqueue_style('uikit', plugin_dir_url(__FILE__).'uikit-3.17.11/css/uikit.min.css', array(), '3.17.11');
+    }
+
+
+    public function register_js()
+    {
+        wp_enqueue_script('validation', plugin_dir_url(__FILE__).'js/validation.js', array('jquery'), '0.1');
     }
 
 
