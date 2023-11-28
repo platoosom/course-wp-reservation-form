@@ -17,6 +17,15 @@
     {
         // Register shortcode
         add_action('init', array($this, 'register_shortcode'));
+
+        // Register stylesheet
+        add_action('init', array($this, 'register_stylesheet'));
+    }
+
+
+    public function register_stylesheet()
+    {
+        wp_enqueue_style('uikit', plugin_dir_url(__FILE__).'uikit-3.17.11/css/uikit.min.css', array(), '3.17.11');
     }
 
 
@@ -59,6 +68,13 @@
                         <textarea  name="detail" class="uk-textarea" id="detail" placeholder="Detail"></textarea>
                     </div>
                 </div>
+
+                <div class="uk-margin">
+                    <div class="uk-form-controls">
+                        <input type="submit" class="uk-button uk-button-primary" name="submit" value="Submit" />
+                    </div>
+                </div>
+
             </form>
 
         <?php 
