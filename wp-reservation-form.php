@@ -23,6 +23,16 @@
 
         // Register javascript
         add_action('init', array($this, 'register_js'));
+
+        // AJAX
+        add_action('wp_ajax_add_reservation', array($this, 'add_reservation'));
+        add_action('wp_ajax_nopriv_add_reservation', array($this, 'add_reservation'));
+    }
+
+
+    public function add_reservation()
+    {
+        wp_send_json_success( $_POST );
     }
 
 
@@ -35,6 +45,9 @@
     public function register_js()
     {
         wp_enqueue_script('validation', plugin_dir_url(__FILE__).'js/validation.js', array('jquery'), '0.1');
+        wp_localize_script('validation', 'Reservation', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+        ));
     }
 
 

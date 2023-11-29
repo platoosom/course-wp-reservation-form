@@ -2,7 +2,8 @@
 
 jQuery(function($){
     $(document).ready(function(){
-        $('.uk-form-stacked').submit(function(){
+        $('.uk-form-stacked').submit(function(e){
+            e.preventDefault();
             
             if($('#fullname').val() == ''){
                 alert("Please input fullname");
@@ -25,8 +26,23 @@ jQuery(function($){
             }
 
 
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: Reservation.ajax_url,
+                data: {
+                    "action": "add_reservation",
+                    "fullname": $("#fullname").val(),
+                    "date": $("#date").val(),
+                    "phone": $("#phone").val(),
+                    "detail": $("#detail").val() 
+                },
+                success: function(msg){
+                    
+                }
+            });
 
-            return true;
+
         });
     });
 });
