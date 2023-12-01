@@ -92,7 +92,19 @@
 
     public function add_reservation()
     {
-        wp_send_json_success( $_POST );
+        $params = array(
+            'post_title' => $_POST['fullname'],
+            'post_content' => $_POST['detail'],
+            'post_type' => 'reservation',
+            'post_status' => 'publish',
+        );
+        $ID = wp_insert_post($params);
+
+        add_post_meta($ID, 'phone', $_POST['phone']);
+        add_post_meta($ID, 'date', $_POST['date']);
+
+
+        wp_send_json_success( 'Data has been saved into database.' );
     }
 
 

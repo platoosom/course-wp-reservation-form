@@ -4,7 +4,7 @@ jQuery(function($){
     $(document).ready(function(){
         $('.uk-form-stacked').submit(function(e){
             e.preventDefault();
-            
+
             if($('#fullname').val() == ''){
                 alert("Please input fullname");
                 return false;
@@ -38,7 +38,8 @@ jQuery(function($){
                     "detail": $("#detail").val() 
                 },
                 success: function(msg){
-                    
+                    document.getElementsByClassName('uk-form-stacked')[0].reset();
+                    alert(msg.data);
                 }
             });
 
