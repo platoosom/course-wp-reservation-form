@@ -35,7 +35,8 @@ jQuery(function($){
                     "fullname": $("#fullname").val(),
                     "date": $("#date").val(),
                     "phone": $("#phone").val(),
-                    "detail": $("#detail").val() 
+                    "detail": $("#detail").val(),
+                    "_wpnonce": $("#_wpnonce").val(),
                 },
                 success: function(msg){
                     document.getElementsByClassName('uk-form-stacked')[0].reset();

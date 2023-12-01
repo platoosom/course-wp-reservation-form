@@ -92,19 +92,23 @@
 
     public function add_reservation()
     {
-        $params = array(
-            'post_title' => $_POST['fullname'],
-            'post_content' => $_POST['detail'],
-            'post_type' => 'reservation',
-            'post_status' => 'publish',
-        );
-        $ID = wp_insert_post($params);
+        if(wp_verify_nonce($_POST['_wpnonce'], 'add-reservation')){
+    
+            $params = array(
+                'post_title' => sanitize_text_field( $_POST['fullname'] ),
+                'post_content' => sanitize_text_field($_POST['detail']),
+                'post_type' => 'reservation',
+                'post_status' => 'publish',
+            );
+            $ID = wp_insert_post($params);
+    
+            add_post_meta($ID, 'phone', sanitize_text_field($_POST['phone']));
+            add_post_meta($ID, 'date', sanitize_text_field($_POST['date']));
+    
+    
+            wp_send_json_success( 'Data has been saved into database.' );
 
-        add_post_meta($ID, 'phone', $_POST['phone']);
-        add_post_meta($ID, 'date', $_POST['date']);
-
-
-        wp_send_json_success( 'Data has been saved into database.' );
+        }
     }
 
 
@@ -134,7 +138,7 @@
         ob_start();
         ?>
             <form class="uk-form-stacked" method="post" action="">
-
+                <?php wp_nonce_field('add-reservation');?>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="fullname">Fullname</label>
                     <div class="uk-form-controls">
