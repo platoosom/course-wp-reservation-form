@@ -31,6 +31,14 @@
         // Register custom posttype
         add_action( 'init', array($this, 'register_reservation_posttype'), 0 );
 
+        // Send html email
+        add_filter( 'wp_mail_content_type', array($this, 'mail_content_type') );
+
+    }
+
+
+    public function mail_content_type() {
+        return 'text/html';
     }
 
 
@@ -104,7 +112,20 @@
     
             add_post_meta($ID, 'phone', sanitize_text_field($_POST['phone']));
             add_post_meta($ID, 'date', sanitize_text_field($_POST['date']));
-    
+            
+            ob_start();
+            ?>
+
+            <p>คุณได้รับการจองใหม่</p>
+            <p>ชื่อ: <?php echo sanitize_text_field( $_POST['fullname'] ); ?></p>
+            <p>เบอร์โทร: <?php echo sanitize_text_field( $_POST['phone'] ); ?></p>
+            <p>วัน: <?php echo sanitize_text_field( $_POST['date'] ); ?></p>
+            <p>รายละเอียด: <?php echo sanitize_text_field( $_POST['detail'] ); ?></p>
+            
+            <?php 
+            $content = ob_get_clean();
+
+            wp_mail('platoosom@gmail.com, teerawat@gmail.com', 'New Reservation', $content);
     
             wp_send_json_success( 'Data has been saved into database.' );
 
