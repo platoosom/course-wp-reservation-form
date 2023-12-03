@@ -1,0 +1,82 @@
+<form class="uk-grid uk-form-stacked" uk-grid method="post" action="">
+    <div class="uk-margin uk-width-1-1">
+        <label class="uk-form-label" for="fullname">Fullname</label>
+        <div class="uk-form-controls">
+            <input name="fullname" class="uk-input" id="fullname" type="text" placeholder="Fullname">
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-1">
+        <label class="uk-form-label" for="email">Email</label>
+        <div class="uk-form-controls">
+            <input name="email" class="uk-input" id="email" type="text" placeholder="Email">
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-1">
+        <label class="uk-form-label" for="phone">Phone</label>
+        <div class="uk-form-controls">
+            <input name="phone" class="uk-input" id="phone" type="text" placeholder="Phone">
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-2@s">
+        <label class="uk-form-label" for="checkin">Checkin</label>
+        <div class="uk-form-controls">
+            <input name="checkin" class="uk-input" id="checkin" type="date" placeholder="Checkin">
+        </div>
+    </div>
+    <div class="uk-margin uk-width-1-2@s">
+        <label class="uk-form-label" for="checkout">Checkout</label>
+        <div class="uk-form-controls">
+            <input name="checkout" class="uk-input" id="checkout" type="date" placeholder="Checkout">
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-2@s">
+        <label class="uk-form-label" for="adults">Adults</label>
+        <div class="uk-form-controls">
+            <select class="uk-select" id="adults" name="adults">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option selected="" value="2">2</option>
+            </select>
+        </div>
+    </div>
+    <div class="uk-margin uk-width-1-2@s">
+        <label class="uk-form-label" for="children">Children</label>
+        <div class="uk-form-controls">
+            <select class="uk-select" id="children" name="children">
+                <option selected="" value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-1">
+        <label class="uk-form-label" for="children">Room Type</label>
+        <div class="uk-form-controls">
+            <select class="uk-select" id="roomtype" name="roomtype">
+                <option selected="" value="">Select Room Type</option>
+                <option value="Deluxe">Deluxe</option>
+                <option value="Superior">Superior</option>
+                <option value="Family Room">Family Room</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-1">
+        <label class="uk-form-label" for="detail">Note</label>
+        <div class="uk-form-controls">
+            <textarea name="note" rows="8" class="uk-textarea" id="note" placeholder="Note"></textarea>
+        </div>
+    </div>
+
+    <div class="uk-margin uk-width-1-1">
+        <div class="uk-form-controls">
+            <input type="submit" class="uk-button uk-button-primary" name="submit" value="Submit" />
+        </div>
+    </div>
+
+</form>

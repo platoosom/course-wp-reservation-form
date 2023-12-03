@@ -59,7 +59,7 @@
             'add_new'               => __( 'Add New', 'text_domain' ),
             'new_item'              => __( 'New Item', 'text_domain' ),
             'edit_item'             => __( 'Edit Item', 'text_domain' ),
-            'update_item'           => __( 'Update Item', 'text_domain' ),
+            'upcheckin_item'           => __( 'Upcheckin Item', 'text_domain' ),
             'view_item'             => __( 'View Item', 'text_domain' ),
             'view_items'            => __( 'View Items', 'text_domain' ),
             'search_items'          => __( 'Search Item', 'text_domain' ),
@@ -104,23 +104,33 @@
     
             $params = array(
                 'post_title' => sanitize_text_field( $_POST['fullname'] ),
-                'post_content' => sanitize_text_field($_POST['detail']),
+                'post_content' => sanitize_text_field($_POST['note']),
                 'post_type' => 'reservation',
                 'post_status' => 'publish',
             );
             $ID = wp_insert_post($params);
     
             add_post_meta($ID, 'phone', sanitize_text_field($_POST['phone']));
-            add_post_meta($ID, 'date', sanitize_text_field($_POST['date']));
+            add_post_meta($ID, 'email', sanitize_text_field($_POST['email']));
+            add_post_meta($ID, 'checkin', sanitize_text_field($_POST['checkin']));
+            add_post_meta($ID, 'checkout', sanitize_text_field($_POST['checkout']));
+            add_post_meta($ID, 'adults', sanitize_text_field($_POST['adults']));
+            add_post_meta($ID, 'children', sanitize_text_field($_POST['children']));
+            add_post_meta($ID, 'roomtype', sanitize_text_field($_POST['roomtype']));
+            add_post_meta($ID, 'note', sanitize_text_field($_POST['note']));
             
             ob_start();
             ?>
 
-            <p>คุณได้รับการจองใหม่</p>
+            <p>ลูกค้าจองห้องพัก</p>
             <p>ชื่อ: <?php echo sanitize_text_field( $_POST['fullname'] ); ?></p>
             <p>เบอร์โทร: <?php echo sanitize_text_field( $_POST['phone'] ); ?></p>
-            <p>วัน: <?php echo sanitize_text_field( $_POST['date'] ); ?></p>
-            <p>รายละเอียด: <?php echo sanitize_text_field( $_POST['detail'] ); ?></p>
+            <p>อีเมล์: <?php echo sanitize_text_field( $_POST['email'] ); ?></p>
+            <p>วัน: <?php echo sanitize_text_field( $_POST['checkin'] ); ?> - <?php echo sanitize_text_field( $_POST['checkout'] ); ?></p>
+            <p>ผู้ใหญ่: <?php echo sanitize_text_field( $_POST['adults'] ); ?></p>
+            <p>เด็ก: <?php echo sanitize_text_field( $_POST['children'] ); ?></p>
+            <p>ชนิดห้อง: <?php echo sanitize_text_field( $_POST['roomtype'] ); ?></p>
+            <p>รายละเอียด: <?php echo sanitize_text_field( $_POST['note'] ); ?></p>
             
             <?php 
             $content = ob_get_clean();
@@ -158,41 +168,80 @@
     {
         ob_start();
         ?>
-            <form class="uk-form-stacked" method="post" action="">
+            <form class="uk-grid uk-form-stacked" uk-grid method="post" action="">
                 <?php wp_nonce_field('add-reservation');?>
-                <div class="uk-margin">
+                <div class="uk-margin uk-width-1-1">
                     <label class="uk-form-label" for="fullname">Fullname</label>
                     <div class="uk-form-controls">
                         <input name="fullname" class="uk-input" id="fullname" type="text" placeholder="Fullname">
                     </div>
                 </div>
 
-                <div class="uk-margin">
+                <div class="uk-margin uk-width-1-1">
+                    <label class="uk-form-label" for="email">Email</label>
+                    <div class="uk-form-controls">
+                        <input name="email" class="uk-input" id="email" type="text" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="uk-margin uk-width-1-1">
                     <label class="uk-form-label" for="phone">Phone</label>
                     <div class="uk-form-controls">
                         <input name="phone" class="uk-input" id="phone" type="text" placeholder="Phone">
                     </div>
                 </div>
 
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="date">Date</label>
+                <div class="uk-margin uk-width-1-2@s">
+                    <label class="uk-form-label" for="checkin">Checkin</label>
                     <div class="uk-form-controls">
-                        <input name="date" class="uk-input" id="date" type="date" placeholder="Date">
+                        <input name="checkin" class="uk-input" id="checkin" type="date" placeholder="Checkin">
+                    </div>
+                </div>
+                <div class="uk-margin uk-width-1-2@s">
+                    <label class="uk-form-label" for="checkout">Checkout</label>
+                    <div class="uk-form-controls">
+                        <input name="checkout" class="uk-input" id="checkout" type="date" placeholder="Checkout">
+                    </div>
+                </div>
+                
+                <div class="uk-margin uk-width-1-2@s">
+                    <label class="uk-form-label" for="adults">Adults</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="adults" name="adults"><option value="0">0</option><option value="1">1</option><option selected="" value="2">2</option></select>
+                    </div>
+                </div>
+                <div class="uk-margin uk-width-1-2@s">
+                    <label class="uk-form-label" for="children">Children</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="children" name="children"><option selected="" value="0">0</option><option value="1">1</option><option value="2">2</option></select>
                     </div>
                 </div>
 
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="detail">Detail</label>
+                <div class="uk-margin uk-width-1-1">
+                    <label class="uk-form-label" for="roomtype">Room Type</label>
                     <div class="uk-form-controls">
-                        <textarea  name="detail" class="uk-textarea" id="detail" placeholder="Detail"></textarea>
+                        <select class="uk-select" id="roomtype" name="roomtype">
+                            <option selected="" value="">Select Room Type</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Superior">Superior</option>
+                            <option value="Family Room">Family Room</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="uk-margin">
+                <div class="uk-margin uk-width-1-1">
+                    <label class="uk-form-label" for="note">Note</label>
+                    <div class="uk-form-controls">
+                        <textarea  name="note" rows="8" class="uk-textarea" id="note" placeholder="Note"></textarea>
+                    </div>
+                </div>
+
+                <div class="uk-margin uk-width-1-1">
                     <div class="uk-form-controls">
                         <input type="submit" class="uk-button uk-button-primary" name="submit" value="Submit" />
                     </div>
                 </div>
+                
 
             </form>
 
